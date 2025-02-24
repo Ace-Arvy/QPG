@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Preview Question Paper</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <!-- Using Bootstrap CDN for a modern minimalistic UI-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+    <body class = "bg-light">
+        <div class="container text-center my-5">
+            <h2 class="mb-4">Preview Question Paper</h2>
+            <div class ="p-3 mb-4 bg-light text-dark">
+                {{ preview_html|safe }}
+            </div>
+            <a href="{{ url_for('download', filename=pdf_filename) }}" class="btn btn-primary">Download PDF</a>
+            <br><br>
+            <a href="{{ url_for('index')}}" class="btn btn-secondary">Back to Home</a>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Generate Question Paper</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <!-- Using Bootstrap CDN for a modern minimalistic UI-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+    <body class = "bg-light">
+        <div class="container text-center my-5">
+            <h2 class="mb-4">Generate Question Paper</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action="/generate_paper" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Grade:</label>
+                    <input type="text" name="grade" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Subject:</label>
+                    <input type="text" name="subject" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Total Marks</label>
+                    <input type="number" name="total_marks" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Number of Questions:</label>
+                    <input type="number" name="num_questions" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Difficulty Distribution:</label>
+                    <input type="number" name="easy_questions" class="form-control" placeholder="Easy Questions" required>
+                    <input type="number" name="medium_questions" class="form-control" placeholder="Medium Questions" required>
+                    <input type="number" name="hard_questions" class="form-control" placeholder="Hard Questions" required>
+                </div>
+                <div class="form-group">
+                    <label>Upload Syllabus(Optional, PDF only):</label>
+                    <input type="file" name="syllabus" class="form-control-file">
+                </div>
+                </div>
+                <div class="form-group">
+                    <label>Upload Sample Paper(Optional, PDF only):</label>
+                    <input type="file" name="sample_paper" class="form-control-file">
+                </div>
+                <button type="submit" class="btn btn-success">Generate Question Paper</button>
+            </form>
+        </div>
+    </body>
+</html>

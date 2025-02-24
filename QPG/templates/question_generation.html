@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Generate Question Bank</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <!-- Using Bootstrap CDN for a modern minimalistic UI-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+    <body class = "bg-light">
+        <div class="container text-center my-5">
+            <h2 class="mb-4">Generate Question Bank</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action="/generate_questions" method="POST", enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Grade:</label>
+                    <input type="text" name="grade" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Subject:</label>
+                    <input type="text" name="subject" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Topic:</label>
+                    <input type="text" name="topic" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Question Type:</label>
+                    <select name="question_type" class="form-control" required>
+                        <option value="MCQ">MCQ</option>
+                        <option value="Short Answer">Short Answer</option>
+                        <option value="Long Answer">Long Answer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Difficulty:</label>
+                    <select name="difficulty" class="form-control" required>
+                        <option value="Easy">Easy</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Hard">Hard</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Marks per Question:</label>
+                    <input type="number" name="marks" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Number of Questions:</label>
+                    <input type="number" name="num_questions" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Upload Syllabus (Optional, PDF only):</label>
+                    <input type="file" name="syllabus" class="form-control-file">
+                </div>
+                <button type="submit" class="btn btn-success">Generate Question Bank</button>
+            </form>
+        </div>
+    </body>
+</html>
